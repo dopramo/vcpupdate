@@ -2,9 +2,11 @@ import os
 import telebot
 import subprocess
 
-# Replace with your actual token and RTMP URL
-BOT_TOKEN = "7313917094:AAGqqvjgwBHaAAQJSxRR6oCp3s25BilWQdQ"
-RTMP_URL = "rtmps://dc5-1.rtmp.t.me/s/1529495932:a-yqHTaa-uW6Tx0r2wpa2w"  # Replace with your actual RTMP URL
+# Read from environment variables
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+RTMP_URL = os.environ.get('RTMP_URL')
+m3u8_url = os.environ.get('M3U8_URL')  # If you store the M3U8 URL in Heroku
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 stream_process = None  # To track the streaming process
@@ -20,7 +22,6 @@ def start_stream(message):
         bot.reply_to(message, "Stream is already running!")
         return
 
-    m3u8_url = "https://livecdn.thepapare.com/out/v1/f08df06f4d95476a90bd2f868dcb524a/index.m3u8"  # Replace with your actual M3U8 link
     bot.reply_to(message, "Starting the stream...")
 
     try:
